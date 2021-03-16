@@ -37,7 +37,14 @@ while run:
 
     keys=pygame.key.get_pressed()
     
-
+    if keys[pygame.K_LEFT] and COORD_X>DELTA_STEP:
+        COORD_X=COORD_X-DELTA_STEP
+    if keys[pygame.K_RIGHT] and COORD_X<WIDTH_DISPLAY-WIDTH_RECTANGLE-DELTA_STEP:
+        COORD_X=COORD_X+DELTA_STEP
+    if keys[pygame.K_UP] and COORD_Y>DELTA_STEP:
+        COORD_Y=COORD_Y-DELTA_STEP
+    if keys[pygame.K_DOWN] and COORD_Y<HEIGHT_DISPLAY-HEIGHT_RECTANGLE-DELTA_STEP:
+        COORD_Y=COORD_Y+DELTA_STEP
 
     gameDisplay.fill((0,0,0))
        
