@@ -1,5 +1,6 @@
 # http://flask.pocoo.org/docs/1.0/quickstart/#a-minimal-application
 # http://flask.pocoo.org/docs/1.0/installation/#installation
+# https://flask-russian-docs.readthedocs.io/ru/latest/quickstart.html
 
 #pip install Flask
 #Create file hello.py

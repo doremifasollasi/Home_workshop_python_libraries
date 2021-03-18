@@ -48,12 +48,12 @@ app = Flask(__name__) # створюємо екземпляр класу з па
 # To redirect a user to another endpoint, use the redirect() function
 
 @app.route("/admin")
-def hello_admin(): 
-    return f"Hello Admin!!!"
+def hello_admin():
+    return "Hello, Admin!!!"
 
 @app.route("/guest/<guest>")
 def hello_guest(guest): 
-    return f"Hello {guest} as Guest"
+    return f"Hello {guest} as Guest"
 
 @app.route("/user/<name>")
 def hello_user(name): 
