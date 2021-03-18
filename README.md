@@ -11,4 +11,6 @@ _random_ is module implements pseudo-random number generators for various distri
 
 _time_ is access and conversions https://docs.python.org/3/library/time.html?highlight=time#module-time
 
-_pygame_ is a free and open-source cross-platform library for the development of multimedia applications like video games using Python.
+_pygame_ is a free and open-source cross-platform library for the development of multimedia applications like video games using Python.https://pypi.org/project/pygame/
+
+_flask_ is a micro web framework written in Python. It is classified as a microframework because it does not require particular tools or libraries. Flask depends on the Jinja template engine and the Werkzeug WSGI toolkit https://flask.palletsprojects.com/en/1.0.x/quickstart/#quickstart
