@@ -1,4 +1,8 @@
 from flask import Flask
+from markupsafe import escape
+from flask import redirect
+
+# from flask import Flask, escape, url_for
 
 app = Flask(__name__) # створюємо екземпляр класу з параметром __name__
 
@@ -26,18 +30,38 @@ app = Flask(__name__) # створюємо екземпляр класу з па
 
 # Add variable sections to a URL by marking sections with <variable_name>.
 
-@app.route('/user/<username>') # <динамічна змінна>
-def show_user_profile(username):
-    # show the user profile for that user
-    return 'User %s' % escape(username)
+# @app.route('/user/<username>') # <динамічна змінна>
+# def show_user_profile(username):
+#     # show the user profile for that user
+#     return 'User %s' % escape(username)  # from markupsafe import escape
 
-@app.route('/post/<int:post_id>')
-def show_post(post_id):
-    # show the post with the given id, the id is an integer
-    return 'Post %d' % post_id
+# @app.route('/post/<int:post_id>')
+# def show_post(post_id):
+#     # show the post with the given id, the id is an integer
+#     return 'Post %d' % post_id
 
-@app.route('/path/<path:subpath>')
-def show_subpath(subpath):
-    # show the subpath after /path/
-    return 'Subpath %s' % escape(subpath)
+# @app.route('/path/<path:subpath>')
+# def show_subpath(subpath):
+#     # show the subpath after /path/
+#     return 'Subpath %s' % escape(subpath)
+
+# To redirect a user to another endpoint, use the redirect() function
+
+@app.route("/admin")
+def hello_admin(): 
+    return f"Hello Admin!!!"
+
+@app.route("/guest/<guest>")
+def hello_guest(guest): 
+    return f"Hello {guest} as Guest"
+
+@app.route("/user/<name>")
+def hello_user(name): 
+    if name=="admin":
+        return redirect(url_for("hello_admin"))  # from flask import redirect
+    else:
+        return redirect(url_for("hello_guest", guest=name))
+
+if __name__ == '__main__': # для автоматичного дебагінгу
+    app.run(debug=True)
 
