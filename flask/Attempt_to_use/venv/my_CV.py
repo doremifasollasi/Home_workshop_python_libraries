@@ -2,9 +2,9 @@ from flask import Flask
 # from markupsafe import escape
 # from flask import redirect
 from flask import render_template
+from flask import request
 
-
-# from flask import Flask, escape, url_for
+from flask import Flask, escape, url_for
 
 app = Flask(__name__) # створюємо екземпляр класу з параметром __name__
 
@@ -13,8 +13,11 @@ app = Flask(__name__) # створюємо екземпляр класу з па
 # def hello_world():
 #     return 'Hello, my dear friend!'
 
+# cd Scripts 
+# activate
+# pip list
 # cd ..
-# $ set FLASK_APP=my_CV.py
+# set FLASK_APP=my_CV.py
 # або
 # set FLASK_ENV=development  тоді буде lazy loading, а також Debugger is active!
 # $ flask run
@@ -70,8 +73,36 @@ app = Flask(__name__) # створюємо екземпляр класу з па
 
 # Rendering Templates
 
-@app.route('/hello/')
-@app.route('/hello/<name>')
-def hello(name=None):
-    return render_template('hello.html', name=name) # from flask import render_template
+# @app.route('/hello/')
+# @app.route('/hello/<name>')
+# def hello(name=None):
+#     return render_template('hello.html', name=name) # from flask import render_template
 
+
+########################### login.html ###########################
+
+def valid_login(name,password):
+    return name==password
+
+def log_the_user_in(name):
+    return f"Hello, {name}! You are lucky."
+
+
+
+@app.route('/')
+def hello():
+    return render_template('hello.html')
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if valid_login(request.form['username'],
+                       request.form['password']):
+            return log_the_user_in(request.form['username'])
+        else:
+            error = 'Invalid username/password'
+    # the code below is executed if the request method
+    # was GET or the credentials were invalid
+    return render_template('login.html', error=error)
