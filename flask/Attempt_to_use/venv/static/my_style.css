@@ -70,7 +70,10 @@ table, th, td {
     background-color: #fa8b0b;
     font-weight: bold;
     color: white;
-}
+}#t01 {
+    width: 100%;    
+    background-color: #065a2967;
+  }
 li {
     margin-bottom: 15px;
     font-weight: normal;
