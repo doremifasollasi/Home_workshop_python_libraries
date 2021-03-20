@@ -73,7 +73,7 @@ table, th, td {
 }
 li {
     margin-bottom: 15px;
-    font-weight: bold;
+    font-weight: normal;
 }
 progress {
     width: 70%;
@@ -114,7 +114,7 @@ form {
     border: none;
     outline: none;
     margin: 0;
-    font-weight: bold;
+    font-weight: normal;
 }
 .submit:hover {
     background-color: #065a29;
