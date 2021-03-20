@@ -70,10 +70,22 @@ table, th, td {
     background-color: #fa8b0b;
     font-weight: bold;
     color: white;
-}#t01 {
+}
+#t01 {
     width: 100%;    
     background-color: #065a2967;
+} 
+#t02 {
+    width: 100%;
+    background-color: #fa8a0b81;
+}
+#t02 tr:nth-child(even) {
+    background-color: #eafa0b4f;
   }
+#t02 th {
+color: rgb(255, 255, 255);
+background-color: #065a2967;
+}
 li {
     margin-bottom: 15px;
     font-weight: normal;
