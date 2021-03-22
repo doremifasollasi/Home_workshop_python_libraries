@@ -149,6 +149,7 @@
                 <dt><b>Russian</b></dt>
                 <dd>- fluent</dd>
             </dl>
+        </div>
 
         <div class="section">
             <h1><span>Education</span></h1>    
@@ -168,16 +169,31 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
 
         <div class="section">
-            <h1><span>My Media</span></h1>
-            <iframe height="150" width="300" src="https://www.youtube.com/embed/Q6_5InVJZ88" allowfullscreen frameborder="0"></iframe>
+            <h1><span>OTHER experience of professional and labor activity on the first education</span></h1>
+            <ul>
+                <li><b>2017-2020</b> - AIA "Gal-Info", journalist, photocorrespondent</li>
+                <li><b>2019-2020</b> - the newspaper "Ratusha", journalist, photo correspondent</li>
+                <li><b>2016</b> - freelance (photographer, the layout of printed products, content production)</li>
+                <li><b>2015</b> - Lviv City Council, “First Career Step Program”(Promotion Department)</li>
+                <li><b>2015-2016</b> - Futsal Association of Lviv Region, photocorrespondent</li>
+            </ul>
         </div>
-        
 
-       <div class="section">
+        <div class="section">
+            <h1><span>Functional responsibilities in the previous position</span></h1>
+            <dl>
+                <dt><b>*</b></dt>
+                <dd>- set the agenda, made a work plan, communicate with customers, managed internships, organized press conferences;</dd>
+                <dt><b>*</b></dt>
+                <dd>- analytics and writing news and articles; holding press conferences; interviewing; production of photo content; reports, portraits, social photo projects; video content production; preparation, shooting, installation.</dd>
+        </div>
+
+        {% block content %}
+        <div class="section">
             <h1><span>Contact Me</span></h1>
-            
             <svg class="face" height="100" width="100">
                 <circle cx="50" cy="50" r="50" fill="#FDD835"/>
                 <circle cx="30" cy="30" r="10" fill="#FFFFFF"/>
@@ -186,15 +202,38 @@
                 <circle cx="70" cy="30" r="5" fill="#000000"/>
                 <path d="M 30 70 q 20 20 40 0" stroke="#FFFFFF" stroke-width="5" fill="none" />
             </svg>
-                 
-            <form>
-                <input name="name" placeholder="Name" type="text" required /><br/>
-                <input name="email" placeholder="Email" type="email" required /><br/>
-                <textarea name="message" placeholder="Message" required ></textarea>
-                <input type="submit" value="SEND" class="submit" />
+      
+            <form action="{{ url_for('get_contact') }}" method=post>
+                <div>
+               
+                    <p>
+                        <!-- {{ form.name.label }} <br> -->
+                        {{ form.name(placeholder='Your name') }}
+                    </p>
+               
+                    <p>
+                        <!-- {{ form.email.label }} <br> -->
+                        {{ form.email(placeholder='Your e-mail ...') }}
+                    </p>
+                  
+                    <p>
+                        <!-- {{ form.subject.label }}<br> -->
+                        {{form.subject(placeholder='Your subject ...')}}
+                    </p>
+                
+                    <p>
+                        <!-- {{ form.message.label }}<br> -->
+                        {{ form.message(placeholder='write your request ...') }}
+                    </p>
+               
+                    <p>
+                        {{ form.submit}}
+                    </p>
+                </div>
             </form>
         </div>
-        
+        {% endblock %}
+
         
         <div class="section" id="contacts">
             <h1><span>Follow Me</span></h1>
@@ -213,7 +252,7 @@
         
         
         <div class="copyright">
-            &copy; 2017 My Blog. All rights reserved.
+            &copy; 2020-2021. CV by Olena Liakhovych
         </div>
         
     </body>

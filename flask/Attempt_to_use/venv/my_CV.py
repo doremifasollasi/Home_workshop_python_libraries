@@ -1,92 +1,60 @@
-from flask import Flask
-# from markupsafe import escape
-# from flask import redirect
-from flask import render_template
+# from flask import Flask
+# # from markupsafe import escape
+# # from flask import redirect
+# from flask import render_template
+# from flask import request
+
+from flask import escape, url_for
+
+
+
+###############################################
+#          Import some packages               #
+###############################################
+from flask import Flask, render_template
+from Forms.forms import ContactForm
 from flask import request
+import pandas as pd
+###############################################
+#          Define flask app                   #
+###############################################
+app = Flask(__name__)
+app.secret_key = 'secretKey'
+###############################################
+#       Render Contact page                   #
+###############################################
 
-from flask import Flask, escape, url_for
-
-app = Flask(__name__) # створюємо екземпляр класу з параметром __name__
-
-
-# @app.route('/') # декорую функцію, щоб виводити інформацію на веб-сторінку
-# def hello_world():
-#     return 'Hello, my dear friend!'
-
-# cd Scripts 
-# activate
-# pip list
-# cd ..
-# set FLASK_APP=my_CV.py
-# або
-# set FLASK_ENV=development  тоді буде lazy loading, а також Debugger is active!
-# $ flask run
-#  * Running on http://127.0.0.1:5000/
-
-# Use the route() decorator to bind a function to a URL.
-
-# @app.route('/')
-# def index():
-#     return 'Index Page'
-
-# @app.route('/hello')
-# def hello():
-#     return 'Hello, World'
-
-# Add variable sections to a URL by marking sections with <variable_name>.
-
-# @app.route('/user/<username>') # <динамічна змінна>
-# def show_user_profile(username):
-#     # show the user profile for that user
-#     return 'User %s' % escape(username)  # from markupsafe import escape
-
-# @app.route('/post/<int:post_id>')
-# def show_post(post_id):
-#     # show the post with the given id, the id is an integer
-#     return 'Post %d' % post_id
-
-# @app.route('/path/<path:subpath>')
-# def show_subpath(subpath):
-#     # show the subpath after /path/
-#     return 'Subpath %s' % escape(subpath)
-
-# To redirect a user to another endpoint, use the redirect() function
-
-# @app.route("/admin")
-# def hello_admin():
-#     return "Hello, Admin!!!"
-
-# @app.route("/guest/<guest>")
-# def hello_guest(guest): 
-#     return f"Hello {guest} as Guest"
-
-# @app.route("/user/<name>")
-# def hello_user(name): 
-#     if name=="admin":
-#         return redirect(url_for("hello_admin"))  # from flask import redirect
-#     else:
-#         return redirect(url_for("hello_guest", guest=name))
-
-# if __name__ == '__main__': # для автоматичного дебагінгу
-#     app.run(debug=True)
+@app.route('/', methods=["GET","POST"])
+def get_contact():
+    form = ContactForm()
+    # here, if the request type is a POST we get the data on contat
+    #forms and save them else we return the contact forms html page
+    if request.method == 'POST':
+        name =  request.form["name"]
+        email = request.form["email"]
+        subject = request.form["subject"]
+        message = request.form["message"]
+        res = pd.DataFrame({'name':name, 'email':email, 'subject':subject ,'message':message}, index=[0])
+        res.to_csv('./contactusMessage.csv')
+        print("The data are saved !")
+        return f"Thanks for your message. I will try to answer you as soon as possible."
+    else:
+        return render_template('hello.html', form=form)
+###############################################
+#                Run app                      #
+###############################################
+if __name__ == '__main__':
+    app.run(debug=True)
 
 
-# Rendering Templates
-
-# @app.route('/hello/')
-# @app.route('/hello/<name>')
-# def hello(name=None):
-#     return render_template('hello.html', name=name) # from flask import render_template
-
-
-########################### login.html ###########################
+######## login.html ###########################
+# app = Flask(__name__) # створюємо екземпляр класу з параметром __name__
 
 def valid_login(name,password):
     return name==password
 
 def log_the_user_in(name):
     return f"Hello, {name}! You are lucky."
-
 
 
 @app.route('/')
