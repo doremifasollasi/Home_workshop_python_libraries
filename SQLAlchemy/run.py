@@ -57,6 +57,7 @@ del_stmt.execute()
 ##################################
 # Classical mapping. Now we can define our classes and create a mapping
 
+
 from sqlalchemy.orm import mapper, relation, backref
 # from sqlalchemy.orm import relationship, backref
 
@@ -74,3 +75,8 @@ class Book:
         self.author = author
     def __repr__(self):
         return self.title
+
+mapper(Book, books_table) # map the table objects we created at the beginning of the program, and Python objects - the corresponding classes
+mapper(Author, authors_table, 
+        properties = {'books': relation(Book, backref='author')})
+
