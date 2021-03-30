@@ -51,3 +51,26 @@ result.fetchall() #[(1, u'Mr X')] # A synonym for the Result.all() method.
 del_stmt = authors_table.delete(whereclause=text("name='Mr Y'"))
 # del_stmt.execute(whereclause=text("name='Mr Y'"))
 del_stmt.execute()
+
+
+
+##################################
+# Classical mapping. Now we can define our classes and create a mapping
+
+from sqlalchemy.orm import mapper, relation, backref
+# from sqlalchemy.orm import relationship, backref
+
+
+class Author:
+    def __init__(self, name):
+        self.name = name
+    def __repr__(self):
+        return self.name
+
+class Book:
+    def __init__(self, title, description, author):
+        self.title = title
+        self.description = description
+        self.author = author
+    def __repr__(self):
+        return self.title
