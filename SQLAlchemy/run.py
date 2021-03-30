@@ -24,6 +24,32 @@ books_table = Table('books',
 # Column('name', String(50)) is possible
 metadata.create_all(engine)   # define and create tables
 
+##################################
+# Classical mapping. Now we can define our classes and create a mapping
+
+from sqlalchemy.orm import mapper, relation, backref
+# from sqlalchemy.orm import relationship, backref
+
+class Author:
+    def __init__(self, name):
+        self.name = name
+    def __repr__(self):
+        return self.name
+
+class Book:
+    def __init__(self, title, description, author):
+        self.title = title
+        self.description = description
+        self.author = author
+    def __repr__(self):
+        return self.title
+
+mapper(Book, books_table) # map the table objects we created at the beginning of the program, and Python objects - the corresponding classes
+mapper(Author, authors_table, 
+        properties = {'books': relation(Book, backref='author')})
+
+
+##################################
 # Using the Table objects directly
 # We don't even need to map our Table-objects in order to manipulate our tables
 
@@ -51,32 +77,3 @@ result.fetchall() #[(1, u'Mr X')] # A synonym for the Result.all() method.
 del_stmt = authors_table.delete(whereclause=text("name='Mr Y'"))
 # del_stmt.execute(whereclause=text("name='Mr Y'"))
 del_stmt.execute()
-
-
-
-##################################
-# Classical mapping. Now we can define our classes and create a mapping
-
-
-from sqlalchemy.orm import mapper, relation, backref
-# from sqlalchemy.orm import relationship, backref
-
-
-class Author:
-    def __init__(self, name):
-        self.name = name
-    def __repr__(self):
-        return self.name
-
-class Book:
-    def __init__(self, title, description, author):
-        self.title = title
-        self.description = description
-        self.author = author
-    def __repr__(self):
-        return self.title
-
-mapper(Book, books_table) # map the table objects we created at the beginning of the program, and Python objects - the corresponding classes
-mapper(Author, authors_table, 
-        properties = {'books': relation(Book, backref='author')})
-
