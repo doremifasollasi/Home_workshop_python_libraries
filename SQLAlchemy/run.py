@@ -1,3 +1,4 @@
+# https://docs.sqlalchemy.org/en/14/core/tutorial.html
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, text
 
@@ -30,10 +31,18 @@ print(compiled_stmt.params) #{'id': None, 'name': None}
 
 insert_stmt.execute(name='Alexandre Dumas') # insert a single entry
 insert_stmt.execute([{'name': 'Mr X'}, {'name': 'Mr Y'}]) # a list of entries
-# metadata.bind = engine # no need to explicitly bind the engine from now on
-# select_stmt = authors_table.select(authors_table.c.id==2)
-# result = select_stmt.execute()
-# result.fetchall() #[(1, u'Mr X')]
+
+metadata.bind = engine # no need to explicitly bind the engine from now on # можемо напряму працювати з об'єктами
+
+select_stmt = authors_table.select(authors_table.c.id==2) # будуємо sql-запит
+result = select_stmt.execute()
+print("result start")
+print(result)
+print("result end")
+
+result.fetchall() #[(1, u'Mr X')] # A synonym for the Result.all() method.
+# These methods return row objects, which are provided via the Row class. The result object can be iterated directly in order to provide an iterator of Row objects:
+
 # del_stmt = authors_table.delete()
 # del_stmt.execute(whereclause=text("name='Mr Y'"))
 # del_stmt.execute() # delete all
