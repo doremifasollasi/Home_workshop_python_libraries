@@ -1,12 +1,16 @@
 # https://docs.sqlalchemy.org/en/14/core/tutorial.html
+# Using the Table objects directly
+# We don't even need to map our Table-objects in order to manipulate our tables
+
+
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, text
 
-engine = create_engine('sqlite:///library.db', echo=True) #connection to the database
+engine = create_engine('sqlite:///library.db', echo=True) # create an Engine object # connection to the database
 
 metadata = MetaData()
 
-authors_table = Table('authors', 
+authors_table = Table('authors',   # define and create tables
                     metadata,
                     Column('id', Integer, primary_key=True), 
                     Column('name', String))
@@ -18,9 +22,10 @@ books_table = Table('books',
                     Column('description', String),
                     Column('author_id', ForeignKey('authors.id')))
 # Column('name', String(50)) is possible
-metadata.create_all(engine)  
+metadata.create_all(engine)   # define and create tables
 
-#######################################
+# Using the Table objects directly
+# We don't even need to map our Table-objects in order to manipulate our tables
 
 insert_stmt = authors_table.insert(bind=engine) #engine може бути кілька різних, тому я вказую, якої саме бази даних стосуватиметься команда insert
 print(type(insert_stmt)) #<class 'sqlalchemy.sql.expression.Insert'>
