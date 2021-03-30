@@ -29,7 +29,7 @@ compiled_stmt = insert_stmt.compile() #tried to add an empty object
 print(compiled_stmt.params) #{'id': None, 'name': None}
 
 insert_stmt.execute(name='Alexandre Dumas') # insert a single entry
-# insert_stmt.execute([{'name': 'Mr X'}, {'name': 'Mr Y'}]) # a list of entries
+insert_stmt.execute([{'name': 'Mr X'}, {'name': 'Mr Y'}]) # a list of entries
 # metadata.bind = engine # no need to explicitly bind the engine from now on
 # select_stmt = authors_table.select(authors_table.c.id==2)
 # result = select_stmt.execute()
