@@ -18,3 +18,11 @@ books_table = Table('books',
                     Column('author_id', ForeignKey('authors.id')))
 # Column('name', String(50)) is possible
 metadata.create_all(engine)  
+
+#######################################
+
+insert_stmt = authors_table.insert(bind=engine) #engine може бути кілька різних, тому я вказую, якої саме бази даних стосуватиметься команда insert
+type(insert_stmt) #<class 'sqlalchemy.sql.expression.Insert'>
+print (insert_stmt) #INSERT INTO authors (id, name) VALUES (:id, :name)
+
+
