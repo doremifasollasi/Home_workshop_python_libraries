@@ -36,13 +36,13 @@ metadata.bind = engine # no need to explicitly bind the engine from now on # м�
 
 select_stmt = authors_table.select(authors_table.c.id==2) # будуємо sql-запит
 result = select_stmt.execute()
-print("result start")
-print(result)
-print("result end")
+# print("result start")
+# print(result)
+# print("result end")
 
 result.fetchall() #[(1, u'Mr X')] # A synonym for the Result.all() method.
 # These methods return row objects, which are provided via the Row class. The result object can be iterated directly in order to provide an iterator of Row objects:
 
-# del_stmt = authors_table.delete()
+del_stmt = authors_table.delete(whereclause=text("name='Mr Y'"))
 # del_stmt.execute(whereclause=text("name='Mr Y'"))
-# del_stmt.execute() # delete all
+del_stmt.execute()
