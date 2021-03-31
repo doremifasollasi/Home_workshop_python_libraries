@@ -1,12 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, text
-
-engine = create_engine('sqlite:///library2.db', echo=True) # create an Engine object # connection to the database
-
 # Declarative mapping # Doing the same thing the easy way:
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 
+
+engine = create_engine('sqlite:///library2.db', echo=True) # create an Engine object # connection to the database
+                                                            #Note that echo=True is also passed here, this tells the engine object to log all the SQL it executed to sys.stdout.
 Base = declarative_base()
 
 class Author(Base):
@@ -36,3 +36,34 @@ class Book(Base):
         return self.title
 
 Base.metadata.create_all(engine) # create tables
+
+##################################
+# Creating instances
+# У попередньому блоці ми створили суто саму базу даних,
+# У наступному блоці - для виконання запитів ми використовуватимемо Session() - об'єкт через, який ми робитимемо транзакції
+# Щоб створити Session(), потірбно з orm дістати sessionmaker
+
+from sqlalchemy.orm import sessionmaker
+
+Session = sessionmaker(bind=engine) # bound session # генеруємо сесію, команда - відай мені такий пулінг сесії на engine - наша БД
+session = Session()
+
+# створюємо об'єкти зі сторони Python
+author_1 = Author('Richard Dawkins')
+author_2 = Author('Matt Ridley')
+book_1 = Book('The Red Queen', 'A popular science book', author_2)
+book_2 = Book('The Selfish Gene', 'A popular science book', author_1)
+book_3 = Book('The Blind Watchmaker', 'The theory of evolutio', author_1)
+
+# на цьому етапі ми лише створюємо транзакцію - кілька запити на додавання
+session.add(author_1)
+session.add(author_2)
+session.add(book_1)
+session.add(book_2)
+session.add(book_3)
+# or simply session.add_all([author_1, author_2, book_1, book_2, book_3])
+
+# а ось вже тут commit() внисе ці транзакції до БД
+session.commit()
+
+
