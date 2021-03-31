@@ -98,9 +98,9 @@ session.query(Book).filter(Book.title.like('The%')).order_by(Book.id).all()
 query = session.query(Book).filter(Book.id == 9).order_by(Book.id)
 
 query.count() # returns 0L
-query.all() # returns an empty list
+query.all() # returns an empty list !!
 query.first() # returns None
-query.one() # raises NoResultFound exception
+query.one() # raises NoResultFound exception !!
 
 query = session.query(Book).filter(Book.id == 1).order_by(Book.id)
 
@@ -110,3 +110,8 @@ book_1.author.books # returns a list of Book-objects representing all the books 
 # get a list of all Book-instances where the author's name is 'Richard Dawkins'
 session.query(Book).filter(Book.author_id==Author.id).filter(Author.name=='Richard Dawkins').all()
 session.query(Book).join(Author).filter(Author.name=='Richard Dawkins').all()
+
+# Ми також можемо писати квері на чистому SQL
+session.query(Book).\
+    from_statement('SELECT b.* FROM books b, authors a WHERE b.author_id = a.id AND a.name=:name').\
+    params(name='Richard Dawkins').all()
