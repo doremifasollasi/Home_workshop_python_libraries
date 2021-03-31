@@ -1,13 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, text
-from sqlalchemy.orm import mapper, relation, backref
 
 engine = create_engine('sqlite:///library2.db', echo=True) # create an Engine object # connection to the database
 
-
 # Declarative mapping # Doing the same thing the easy way:
 from sqlalchemy.ext.declarative import declarative_base
-# from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref
 
 Base = declarative_base()
 
@@ -15,6 +13,7 @@ class Author(Base):
     __tablename__ = 'authors'
     id = Column(Integer, primary_key=True)
     name = Column(String)
+
     def __init__(self, name):
         self.name = name
     def __repr__(self):
