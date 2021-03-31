@@ -32,6 +32,9 @@ class Book(Base):
         self.description = description
         self.author = author
 
+    def __str__(self):
+        return f"{self.id} {self.title} {self.description} {self.author}"
+
     def __repr__(self):
         return f"{self.id} {self.title}"
 
@@ -49,29 +52,41 @@ Session = sessionmaker(bind=engine) # bound session # генеруємо сес�
 session = Session()
 
 # створюємо об'єкти зі сторони Python
-author_1 = Author('Richard Dawkins')
-author_2 = Author('Matt Ridley')
-book_1 = Book('The Red Queen', 'A popular science book', author_2)
-book_2 = Book('The Selfish Gene', 'A popular science book', author_1)
-book_3 = Book('The Blind Watchmaker', 'The theory of evolutio', author_1)
+# author_1 = Author('Richard Dawkins')
+# author_2 = Author('Matt Ridley')
+# book_1 = Book('The Red Queen', 'A popular science book', author_2)
+# book_2 = Book('The Selfish Gene', 'A popular science book', author_1)
+# book_3 = Book('The Blind Watchmaker', 'The theory of evolutio', author_1)
 
-# на цьому етапі ми лише створюємо транзакцію - кілька запити на додавання
-session.add(author_1)
-session.add(author_2)
-session.add(book_1)
-session.add(book_2)
-session.add(book_3)
-# or simply session.add_all([author_1, author_2, book_1, book_2, book_3])
+# # на цьому етапі ми лише створюємо транзакцію - кілька запити на додавання
+# session.add(author_1)
+# session.add(author_2)
+# session.add(book_1)
+# session.add(book_2)
+# session.add(book_3)
+# # or simply session.add_all([author_1, author_2, book_1, book_2, book_3])
 
-print(book_3)
-session.commit()
+# print(book_3)
+# session.commit()
 
-# а ось вже тут commit() внисе ці транзакції до БД
-# session.commit() # це як команда push в git # також ця команда повертає об'єктові id
+# # а ось вже тут commit() внисе ці транзакції до БД
+# # session.commit() # це як команда push в git # також ця команда повертає об'єктові id
 
-book_3.description = 'The theory of evolution' # update the object
-# book_3 in session # check whether the object is in the session
-# True
-print(book_3)
-# book_3.id = 2 # не можна так робити, адже id поле автоінкриментне, тому його не вийде засетати
-session.commit()
+# book_3.description = 'The theory of evolution' # update the object
+# # book_3 in session # check whether the object is in the session
+# # True
+# print(book_3)
+# # book_3.id = 2 # не можна так робити, адже id поле автоінкриментне, тому його не вийде засетати
+# session.commit()
+
+
+####################
+# Querying
+
+query = session.query(Book).order_by(Book.id) # returns a query
+print(query) # FROM books ORDER BY books.id
+books = session.query(Book).order_by(Book.id).all() # returns an object-list
+print(books)
+
+for book in books:
+    print(book)
