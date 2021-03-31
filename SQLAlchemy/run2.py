@@ -33,7 +33,7 @@ class Book(Base):
         self.author = author
 
     def __repr__(self):
-        return self.title
+        return f"{self.id} {self.title}"
 
 Base.metadata.create_all(engine) # create tables
 
@@ -63,7 +63,15 @@ session.add(book_2)
 session.add(book_3)
 # or simply session.add_all([author_1, author_2, book_1, book_2, book_3])
 
-# а ось вже тут commit() внисе ці транзакції до БД
+print(book_3)
 session.commit()
 
+# а ось вже тут commit() внисе ці транзакції до БД
+# session.commit() # це як команда push в git # також ця команда повертає об'єктові id
 
+book_3.description = 'The theory of evolution' # update the object
+# book_3 in session # check whether the object is in the session
+# True
+print(book_3)
+# book_3.id = 2 # не можна так робити, адже id поле автоінкриментне, тому його не вийде засетати
+session.commit()
